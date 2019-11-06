@@ -1,9 +1,2 @@
-1. Server
+#Mafia Game Project 틀 만들기 - YUMMY
 
-
-2. Client
-
-
-
-3. Game
-  
