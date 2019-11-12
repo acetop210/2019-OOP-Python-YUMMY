@@ -17,4 +17,3 @@ class Vote_system(object):
    
    def vote_kill(self):
       pass
-   
