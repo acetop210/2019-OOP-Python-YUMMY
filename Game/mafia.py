@@ -1,2 +1,1 @@
-
-"""this is file for mafia game"""
+print("mafia")
