@@ -40,7 +40,7 @@
 
 ## 7. 구현에 필요한 라이브러리나 기술
    + pygame: GUI 구현 용도
-   + server: 게임 서버 구축
+   + socket, socketserver: 게임 서버 구축
    + threading: 투표, 채팅 등 게임 내 대부분의 기능에 사용
    + time: 시간 측정에 사용
 
