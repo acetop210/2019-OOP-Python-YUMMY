@@ -2,10 +2,11 @@ import random
 
 
 class dynamic():
-    def __init__(self):
+    def __init__(self, world):
         self.health = 0
         self.x_pos = 0
         self.y_pos = 0
+        self.generate(world)
 
     def generate(self, world):
         first_x = random.randrange(1, 11)
