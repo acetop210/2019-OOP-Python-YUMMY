@@ -28,7 +28,7 @@ class FourGi(dynamic):
                 find5 = True
                 break
         if find5 is False:
-            self.random_move()
+            self.random_move(world)
 
 
 class FiveGi(dynamic):
@@ -58,4 +58,4 @@ class FiveGi(dynamic):
                 find_cup = True
                 break
         if find_cup is False:
-            self.random_move()
+            self.random_move(world)
