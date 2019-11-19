@@ -7,6 +7,17 @@ class dynamic():
         self.x_pos = 0
         self.y_pos = 0
 
+    def generate(self, world):
+        first_x = random.randrange(1, 11)
+        first_y = random.randrange(1, 11)
+
+        while world[first_x][first_y] != '0':
+            first_x = random.randrange(1, 11)
+            first_y = random.randrange(1, 11)
+
+        self.x_pos = first_x
+        self.y_pos = first_y
+
     def move(self):
         direction = input()
 
