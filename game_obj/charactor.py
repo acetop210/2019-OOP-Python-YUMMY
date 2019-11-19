@@ -12,7 +12,7 @@ class FourGi(dynamic):
                 five_list.remove(i)
                 break
 
-    def move4(self, world, five_list):
+    def move4(self, world, four_list, five_list, trap_list):
         dx = [1, 0, -1, 0]
         dy = [0, 1, 0, -1]
         find5 = False
@@ -29,7 +29,16 @@ class FourGi(dynamic):
                 break
         if find5 is False:
             self.random_move(world)
+            self.fallen(four_list, trap_list)
 
+    def fallen(self, four_list, trap_list):
+        die = False
+        for i in trap_list:
+            if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
+                die = True
+                break
+        if die is True:
+            four_list.remove(self)
 
 class FiveGi(dynamic):
     def __init__(self):
@@ -42,7 +51,7 @@ class FiveGi(dynamic):
                 cup_list.remove(i)
                 break
 
-    def move5(self, world, cup_list):
+    def move5(self, world, cup_list, five_list, trap_list):
         dx = [1, 0, -1, 0]
         dy = [0, 1, 0, -1]
         find_cup = False
@@ -59,3 +68,13 @@ class FiveGi(dynamic):
                 break
         if find_cup is False:
             self.random_move(world)
+            self.fallen(five_list, trap_list)
+
+    def fallen(self, five_list, trap_list):
+        die = False
+        for i in trap_list:
+            if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
+                die = True
+                break
+        if die is True:
+            five_list.remove(self)
