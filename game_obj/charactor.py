@@ -1,4 +1,4 @@
-from dynamic import dynamic
+from .dynamic import dynamic
 
 
 class FourGi(dynamic):
