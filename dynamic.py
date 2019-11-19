@@ -24,7 +24,6 @@ class dynamic():
         point = [1, 0, -1]
         pointx = [1, -1]
         x_direction = random.choice(point)
-        y_direction = 100
 
         if x_direction == 0:
             y_direction = random.choice(pointx)
