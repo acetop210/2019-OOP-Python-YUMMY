@@ -49,6 +49,7 @@ class Dynamic():
                 elif direction == 'c':
                     self.x_pos = self.x_pos + 1
                     self.y_pos = self.y_pos + 1
+
             else:
                 print("다시 입력하세요.")
 
