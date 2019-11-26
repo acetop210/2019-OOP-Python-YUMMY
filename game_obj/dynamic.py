@@ -27,7 +27,7 @@ class Dynamic():
             world[self.x_pos][self.y_pos] = character
 
     def move(self):
-        a = {'w' : (-1,0), 's' : (1,0), 'a' : (0,-1), 'd' : (0,1), 'q' : (-1,-1), 'e' : (-1,q), 'z' : (1,-1), 'c' : (1,1)}
+        a = {'w' : (-1,0), 's' : (1,0), 'a' : (0,-1), 'd' : (0,1), 'q' : (-1,-1), 'e' : (-1,1), 'z' : (1,-1), 'c' : (1,1)}
         while True:
             direction = input()
             if direction in a and 1<= self.x_pos + a[direction][0] <= 11 and 1<= self.y_pos + a[direction][1] <= 11:
