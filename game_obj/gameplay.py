@@ -3,6 +3,20 @@ from static_obj import*
 import random
 import sys
 
+def update_map():
+    for i in range(15):
+        for j in range(15):
+            world[i][j] = 0
+    for i in cupbabs:
+        world[i.x_pos][i.y_pos] = 'c'
+    for i in pits:
+        world[i.x_pos][i.y_pos] = 'o'
+    for i in four_student:
+        world[i.x_pos][i.y_pos] = '4'
+    for i in five_student:
+        world[i.x_pos][i.y_pos] = '5'
+
+    world[player.x_pos][player.y_pos] = 's'
 
 four_student = []
 five_student = []
@@ -99,27 +113,26 @@ while True:
         print("사감선생님의 손전등 배터리가 끝났습니다 - GAME OVER")
         sys.exit()
     else:
+        update_map()
         draw_map()
         print("게임이 시작되었습니다 w,a,s,d,q,e,z,c로 사감쌤을 이동시켜 따방하는 학생들을 잡으세요")
         player.move()
         player.catch_student(four_student, five_student)
         player.minus_health()
-
+'''
         for i in four_student:
-            i.move4(world,four_student,five_student,pits)
+            i.move4(world, four_student, five_student, pits)
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 four_student.remove(i)
 
         for i in five_student:
-            i.move5(world,cupbabs,five_student,pits)
+            i.move5(world, cupbabs, five_student, pits)
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 five_student.remove(i)
 
 
-
-
-
+'''
 
 
