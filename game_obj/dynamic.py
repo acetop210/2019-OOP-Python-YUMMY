@@ -26,19 +26,14 @@ class Dynamic():
         if flag:
             world[self.x_pos][self.y_pos] = character
     def move(self):
+
+        a = {'w':(-1,0), 'q' : (-1,-1), 's' : (1,0), 'a' : (0,-1), 'd' : (0,1), 'e' : (-1,1), 'z' : (0,1), 'c' : (1,1)}
         while True:
             direction = input()
-            if direction in ['w', 'a', 's', 'd']:
-                if direction == 'w':
-                    self.x_pos = self.x_pos - 1
-                elif direction == 'a':
-                    self.y_pos = self.y_pos - 1
-                elif direction == 's':
-                    self.x_pos = self.x_pos + 1
-                else:
-                    self.y_pos = self.y_pos + 1
-
-                break
+            if direction in a and 1 <= self.x_pos+a[direction][0] <= 11 and 1 <= self.y_pos+a[direction][1] <= 11:
+                self.x_pos = self.x_pos + a[direction][0]
+                self.y_pos = self.y_pos + a[direction][1]
+                return
 
             else:
                 print("다시 제대로 입력하세여")
