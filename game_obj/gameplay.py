@@ -6,7 +6,7 @@ import sys
 def update_map():
     for i in range(15):
         for j in range(15):
-            world[i][j] = 0
+            world[i][j] = '0'
     for i in cupbabs:
         world[i.x_pos][i.y_pos] = 'c'
     for i in pits:
@@ -129,7 +129,6 @@ while True:
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 four_student.remove(i)
-
         for i in five_student:
             i.move5(world, cupbabs, five_student, pits)
             i.minus_health()
