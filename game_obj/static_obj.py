@@ -2,18 +2,15 @@
 import random
 import pygame
 
+
+
 BLACK= ( 0,  0,  0)
 WHITE= (255,255,255)
 BLUE = ( 0,  0,255)
 GREEN= ( 0,255,  0)
 RED  = (255,  0,  0)
 
-pygame.display.set_caption("DABANG JABGI")
-size  = [400,300]
-screen= pygame.display.set_mode(size)
-
 cupbab_image = pygame.image.load("cupbab.jpg")
-
 
 class static(): #움직이지 않는 객체의 클래스
 
@@ -83,32 +80,10 @@ class trap(static): #함정 클래스
         
         
 
-        
-
-
-field = []
-for i in range(15):
-    line = []
-    for j in range(15):
-        
-        line.append(0)
-    field.append(line)
-
-Trap = []
-    
-cnt = 0
-
-a = trap(field)
-
-a.draw(screen)
-
-
-
-
-pygame.display.update()
-
-
-
+if __name__ == "__main__":
+    pygame.display.set_caption("DABANG JABGI")
+    size  = [400,300]
+    screen= pygame.display.set_mode(size)
 
 
 

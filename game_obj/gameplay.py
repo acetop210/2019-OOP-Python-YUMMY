@@ -4,6 +4,7 @@ import random
 import sys
 
 
+
 four_student = []
 five_student = []
 cupbabs = []
@@ -21,10 +22,13 @@ player = sagam()
 player.generate(world, 's')
 
 def draw_map():
+
     for i in range(1,11):
         for j in range(1,11):
             print(world[i][j], end=' ')
         print()
+
+
 
 
 print("안녕하세요, 사감선생님의 술래잡기에 오신 것을 환영합니다! 게임을 진행하고 싶으시면 Yes를 정확하게 입력 해 주시고 하기 싫으시다면 No를 정확히 입력해주세요")
