@@ -1,9 +1,9 @@
-from .dynamic import dynamic
+from .dynamic import Dynamic
 
 
-class FourGi(dynamic):
+class FourGi(Dynamic):
     def __init__(self):
-        dynamic.__init__(self)
+        Dynamic.__init__(self)
         self.health = 3
 
     def eat5(self, five_list):
@@ -40,9 +40,9 @@ class FourGi(dynamic):
         if die is True:
             four_list.remove(self)
 
-class FiveGi(dynamic):
+class FiveGi(Dynamic):
     def __init__(self):
-        dynamic.__init__(self)
+        Dynamic.__init__(self)
         self.health = 3
 
     def eatcup(self, cup_list):
