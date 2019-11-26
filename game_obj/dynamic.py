@@ -25,6 +25,7 @@ class Dynamic():
                     break
         if flag:
             world[self.x_pos][self.y_pos] = character
+
     def move(self):
         while True:
             direction = input()
@@ -42,8 +43,6 @@ class Dynamic():
 
             else:
                 print("다시 제대로 입력하세여")
-
-
 
     def random_move(self, world):
         point = [1, 0, -1]
