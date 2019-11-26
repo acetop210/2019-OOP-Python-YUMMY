@@ -54,7 +54,7 @@ while True:
 while True:
     five = input()
     if five.isdigit() and int(five) <= 15:
-        print("5기 ", four, "명")
+        print("5기 ", five, "명")
         break
     else:
         print("다시 입력하세요")
@@ -62,7 +62,7 @@ while True:
 while True:
     cupbaps = input()
     if cupbaps.isdigit() and int(cupbaps) <= 15:
-        print("컵밥 ", four, "개")
+        print("컵밥 ", cupbaps, "개")
         break
     else:
         print("다시 입력하세요")
