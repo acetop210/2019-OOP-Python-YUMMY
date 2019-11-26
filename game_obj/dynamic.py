@@ -1,24 +1,30 @@
 import random
 
 
-class dynamic():
-    def __init__(self, world):
+class Dynamic():
+    def __init__(self):
         self.health = 0
         self.x_pos = 0
         self.y_pos = 0
-        self.generate(world)
 
-    def generate(self, world):
-        first_x = random.randrange(1, 11)
-        first_y = random.randrange(1, 11)
-
-        while world[first_x][first_y] != '0':
-            first_x = random.randrange(1, 11)
-            first_y = random.randrange(1, 11)
-
-        self.x_pos = first_x
-        self.y_pos = first_y
-
+    def generate(self, world, character):
+        flag = 0
+        if len(world) == 0:
+            self.x_pos = random.randint(1, 10)
+            self.y_pos = random.randint(1, 10)
+            flag = 1
+        else:
+            while True:
+                flag = 0
+                r_rand = random.randint(1, 10)
+                c_rand = random.randint(1, 10)
+                if world[r_rand][c_rand] == 0:
+                    self.x_pos = r_rand
+                    self.y_pos = c_rand
+                    flag = 1
+                    break
+        if flag:
+            world[self.x_pos][self.y_pos] = character
     def move(self):
         direction = input()
 
@@ -63,3 +69,21 @@ class dynamic():
             return 'dead'
         else:
             return 'alive'
+
+class sagam(Dynamic):
+    def __init__(self):
+        Dynamic.__init__(self)
+        self.health = 5
+        self.point = 0
+
+
+    def catch_student(self, student_field_4, student_field_5):
+        for i in student_field_4:
+            if self.x_pos == i.x_pos and self.x_pos == i.y_pos:
+                self.point = self.ponit + 2
+                student_field_4.remove(i)
+
+        for i in student_field_5:
+            if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
+                self.point = self.point + 1
+                student_field_5.remove(i)
