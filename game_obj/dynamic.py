@@ -26,17 +26,24 @@ class Dynamic():
         if flag:
             world[self.x_pos][self.y_pos] = character
     def move(self):
-        direction = input()
+        while True:
+            direction = input()
+            if direction in ['w', 'a', 's', 'd']:
+                if direction == 'w':
+                    self.y_pos = self.y_pos + 1
+                elif direction == 'a':
+                    self.x_pos = self.x_pos - 1
+                elif direction == 's':
+                    self.x_pos = self.x_pos + 1
+                else:
+                    self.y_pos = self.y_pos - 1
 
-        if direction in ['w', 'a', 's', 'd']:
-            if direction == 'w':
-                self.y_pos = self.y_pos + 1
-            elif direction == 'a':
-                self.x_pos = self.x_pos - 1
-            elif direction == 's':
-                self.x_pos = self.x_pos + 1
+                break
+
             else:
-                self.y_pos = self.y_pos - 1
+                print("다시 제대로 입력하세여")
+
+
 
     def random_move(self, world):
         point = [1, 0, -1]
@@ -80,7 +87,7 @@ class sagam(Dynamic):
     def catch_student(self, student_field_4, student_field_5):
         for i in student_field_4:
             if self.x_pos == i.x_pos and self.x_pos == i.y_pos:
-                self.point = self.ponit + 2
+                self.point = self.point + 2
                 student_field_4.remove(i)
 
         for i in student_field_5:
