@@ -30,13 +30,13 @@ class Dynamic():
             direction = input()
             if direction in ['w', 'a', 's', 'd']:
                 if direction == 'w':
-                    self.y_pos = self.y_pos + 1
-                elif direction == 'a':
                     self.x_pos = self.x_pos - 1
+                elif direction == 'a':
+                    self.y_pos = self.y_pos - 1
                 elif direction == 's':
                     self.x_pos = self.x_pos + 1
                 else:
-                    self.y_pos = self.y_pos - 1
+                    self.y_pos = self.y_pos + 1
 
                 break
 
