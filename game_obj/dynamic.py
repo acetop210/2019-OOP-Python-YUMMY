@@ -28,20 +28,29 @@ class Dynamic():
     def move(self):
         while True:
             direction = input()
-            if direction in ['w', 'a', 's', 'd']:
+            if direction in ['w', 'a', 's', 'd', 'q', 'e', 'z', 'c']:
                 if direction == 'w':
-                    self.y_pos = self.y_pos + 1
+                    self.y_pos = self.y_pos - 1
                 elif direction == 'a':
                     self.x_pos = self.x_pos - 1
                 elif direction == 's':
+                    self.y_pos = self.y_pos + 1
+                elif direction == 'd':
                     self.x_pos = self.x_pos + 1
-                else:
+                elif direction == 'q':
                     self.y_pos = self.y_pos - 1
-
-                break
-
+                    self.x_pos = self.x_pos - 1
+                elif direction == 'e':
+                    self.y_pos = self.y_pos - 1
+                    self.x_pos = self.x_pos + 1
+                elif direction == 'z':
+                    self.x_pos = self.x_pos - 1
+                    self.y_pos = self.y_pos + 1
+                elif direction == 'c':
+                    self.x_pos = self.x_pos + 1
+                    self.y_pos = self.y_pos + 1
             else:
-                print("다시 제대로 입력하세여")
+                print("다시 입력하세요.")
 
 
 

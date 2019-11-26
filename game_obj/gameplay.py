@@ -123,7 +123,7 @@ while True:
         player.move()
         player.catch_student(four_student, five_student)
         player.minus_health()
-'''
+
         for i in four_student:
             i.move4(world, four_student, five_student, pits)
             i.minus_health()
@@ -137,6 +137,6 @@ while True:
                 five_student.remove(i)
 
 
-'''
+
 
 
