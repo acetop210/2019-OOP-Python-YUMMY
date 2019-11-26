@@ -3,6 +3,9 @@ from static_obj import*
 import random
 import sys
 
+def update_map():
+    for i in cupbabs:
+        i
 
 four_student = []
 five_student = []
@@ -106,18 +109,16 @@ while True:
         player.minus_health()
 
         for i in four_student:
-            i.move4(world,four_student,five_student,pits)
+            i.move4(world, four_student, five_student, pits)
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 four_student.remove(i)
 
         for i in five_student:
-            i.move5(world,cupbabs,five_student,pits)
+            i.move5(world, cupbabs, five_student, pits)
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 five_student.remove(i)
-
-
 
 
 
