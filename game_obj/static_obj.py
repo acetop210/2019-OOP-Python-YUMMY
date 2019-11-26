@@ -11,6 +11,7 @@ GREEN= ( 0,255,  0)
 RED  = (255,  0,  0)
 
 cupbab_image = pygame.image.load("cupbab.jpg")
+trap_image = pygame.image.load("hamjung.jpg")
 
 class static(): #움직이지 않는 객체의 클래스
 
@@ -47,7 +48,7 @@ class cupbab(static): #컵밥 클래스
     def __init__(self, field):
         static.__init__(self, field)
         self.health = 3
-        self.kind = GREEN
+        self.kind = cupbab_image
 
     def eaten(self, bab, field): # 컵밥의 정보가 든 리스트 bab, 판의 정보 field를 받아서 객체를 삭제.
         for i in bab:
@@ -61,8 +62,7 @@ class trap(static): #함정 클래스
 
     def __init__(self, field):
         static.__init__(self, field)
-        self.health = 3
-        self.kind = cupbab_image
+        self.kind = trap_image
     
     def delete(self, Trap):
         for i in Trap:
