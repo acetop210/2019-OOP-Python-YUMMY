@@ -117,8 +117,8 @@ class FourGi(Dynamic):
             if nx <= 0 or nx > 10 or ny <= 0 or ny > 10:
                 continue
             if world[nx][ny] == '5':
-                self.x_pos = nx[i]
-                self.y_pos = ny[i]
+                self.x_pos = nx
+                self.y_pos = ny
                 self.eat5(five_list)
                 find5 = True
                 break
