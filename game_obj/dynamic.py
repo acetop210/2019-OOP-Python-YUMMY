@@ -93,7 +93,7 @@ class sagam(Dynamic):
 class FourGi(Dynamic):
     def __init__(self):
         Dynamic.__init__(self)
-        self.health = 3
+        self.health = 7
 
     def eat5(self, five_list):
         for i in five_list:
@@ -135,7 +135,7 @@ class FourGi(Dynamic):
 class FiveGi(Dynamic):
     def __init__(self):
         Dynamic.__init__(self)
-        self.health = 3
+        self.health = 7
 
     def eatcup(self, cup_list):
         for i in cup_list:
