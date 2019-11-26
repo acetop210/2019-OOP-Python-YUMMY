@@ -119,7 +119,8 @@ while True:
     else:
         update_map()
         draw_map()
-        print("게임이 시작되었습니다 w,a,s,d,q,e,z,c로 사감쌤을 이동시켜 따방하는 학생들을 잡으세요")
+        print("사감 생명 : "+str(player.health)+" 4기 수 : " +str(len(four_student)) + " 5기 수 : "+str(len(five_student)) + " 점수 : "+ str(player.point))
+        print("w,a,s,d,q,e,z,c로 사감쌤을 이동시켜 따방하는 학생들을 잡으세요")
         player.move()
         player.catch_student(four_student, five_student)
         player.minus_health()
