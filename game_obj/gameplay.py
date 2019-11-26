@@ -1,5 +1,5 @@
 from dynamic import*
-from static import*
+from static_obj import*
 import random
 import sys
 
