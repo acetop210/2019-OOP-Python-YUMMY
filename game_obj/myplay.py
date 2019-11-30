@@ -1,9 +1,9 @@
 # Import a library of functions called 'pygame'
 import pygame
-from dynamic import*
-from static_obj import*
-import sys
-import time
+import dynamic
+import static_obj
+import gameplay
+
 
 # Initialize the game engine
 pygame.init()
@@ -60,6 +60,13 @@ EdRectObj.center = (600, 375)
 Startbutton = pygame.Rect(550, 270, 100, 50)
 Startbutton2 = pygame.Rect(823, 296, 100, 50)
 Quitbutton = pygame.Rect(550, 350, 100, 50)
+four_student = []
+five_student = []
+cupbabs = []
+pits = []
+
+world = []
+
 
 def write(text, x, y, size):
     font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
@@ -86,6 +93,18 @@ def draw_map():
         pygame.draw.line(screen, BLACK, [265 + 65.5 * i, 10], [265 + 65.5 * i, 665], 5)
         pygame.draw.line(screen, BLACK, [265, 10 + 65.5 * i], [920, 10 + 65.5 * i], 5)
 
+    for i in range(11):
+        for j in range(11):
+            if world[i][j] == '4':
+                draw_img('4gi.jpg',i,j)
+            if world[i][j] == '5':
+                draw_img('5gi.jpg',i,j)
+            if world[i][j] == 's':
+                draw_img('pig.jpg',i,j)
+            if world[i][j] == 'c':
+                draw_img('cupbap.jpg',i,j)
+            if world[i][j] == 'o':
+                draw_img('hamjung.jpg',i,j)
 
 def draw_img(img, x, y):
     nx = 265+16.375*(2*2*(y-1)+1)
@@ -280,7 +299,6 @@ def func_dis2():
 
 
 
-
 mk_img_li()
 
 dis1 = True
@@ -288,6 +306,8 @@ dis2 = False
 dis3 = False
 
 while not done:
+
+    clock.tick(10)
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
@@ -304,11 +324,13 @@ while not done:
     if dis2:
         dis2, dis3 = func_dis2()
 
+
     if dis3:
         draw_map()
 
         draw_img(img_li[0], 1, 1)
         draw_img(img_li[0], 2, 1)
+
 
         for i in range(0, 15):
             a = []
@@ -348,10 +370,10 @@ while not done:
             else:
                 gameplay.update_map()
                 draw_map()
-                write("손전등 배터 : " + str(player.health), 10, 10, 30)
-                write("점수 : " + str(player.point), 10, 50, 30)
-                write("4기 수 : " + str(len(four_student)), 10, 90, 30)
-                write("5기 수 : " + str(len(five_student)), 10, 130, 30)
+                write("손전등 배터 : "+str(player.health),10,10,30)
+                write("점수 : "+str(player.point), 10, 50, 30)
+                write("4기 수 : "+str(len(four_student)), 10, 90, 30)
+                write("5기 수 : "+str(len(five_student)), 10, 130, 30)
 
                 events = pygame.event.get()
                 x = 'p'
@@ -392,6 +414,8 @@ while not done:
                     five_student.remove(i)
 
     pygame.display.flip()
+
+
 
 # Be IDLE friendly
 pygame.quit()
