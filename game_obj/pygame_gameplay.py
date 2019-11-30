@@ -1,9 +1,66 @@
-from dynamic import*
-from static_obj import*
+import pygame
 import myplay
-
-import random
+import dynamic
+import static_obj
 import sys
+
+
+pygame.init()
+
+# Define the colors we will use in RGB format
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+# Set the height and width of the screen
+size = [1200, 675]
+screen = pygame.display.set_mode(size)
+
+pygame.display.set_caption("따방 잡아버리기")
+
+# Loop until the user clicks the close button.
+done = False
+clock = pygame.time.Clock()
+img_li = []
+
+four = 0
+five = 0
+cupbaps = 0
+pit = 0
+
+
+def write(text, x, y, size):
+    font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
+    text = font.render(text, True, (28, 0, 0))  # 텍스트가 표시된 Surface 를 만듬
+    screen.blit(text, (x, y))  # 화면에 표시
+
+
+def mk_img_li():
+    img = pygame.image.load('cupbap.jpg')
+    img_li.append(img)
+    img = pygame.image.load('hamjung.jpg')
+    img_li.append(img)
+    img = pygame.image.load('4gi.jpg')
+    img_li.append(img)
+    img = pygame.image.load('fivegi.jpg')
+    img_li.append(img)
+    img = pygame.image.load('pig.jpg')
+    img_li.append(img)
+
+
+def draw_map():
+    pygame.draw.lines(screen, BLACK, True, [[265, 10], [265, 665], [920, 665], [920, 10]], 5)
+    for i in range(1, 10):
+        pygame.draw.line(screen, BLACK, [265 + 65.5 * i, 10], [265 + 65.5 * i, 665], 5)
+        pygame.draw.line(screen, BLACK, [265, 10 + 65.5 * i], [920, 10 + 65.5 * i], 5)
+
+
+def draw_img(img, x, y):
+    nx = 265+16.375*(2*2*(y-1)+1)
+    ny = 10+16.375*(2*2*(x-1)+1)
+    screen.blit(img, (nx, ny))
 
 def update_map():
     for i in range(15):
@@ -45,6 +102,7 @@ def draw_map():
         print()
 
 
+draw_map()
 print("안녕하세요, 사감선생님의 술래잡기에 오신 것을 환영합니다! 게임을 진행하고 싶으시면 Yes를 정확하게 입력 해 주시고 하기 싫으시다면 No를 정확히 입력해주세요")
 
 while True:
@@ -113,6 +171,15 @@ for i in range(int(pit)):
     pits.append(x)
 
 
+
+
+
+
+
+
+
+
+
 print("게임이 시작되었습니다 w,a,s,d,q,e,z,c로 사감쌤을 이동시켜 따방하는 학생들을 잡으세요")
 while True:
     print("남은 목숨:", player.health)
@@ -138,6 +205,7 @@ while True:
             i.minus_health()
             if i.dead_or_alive() == 'dead':
                 five_student.remove(i)
+
 
 
 

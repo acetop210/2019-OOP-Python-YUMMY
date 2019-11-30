@@ -1,5 +1,9 @@
 # Import a library of functions called 'pygame'
 import pygame
+import dynamic
+import static_obj
+import gameplay
+
 
 # Initialize the game engine
 pygame.init()
@@ -27,6 +31,13 @@ five = 0
 cupbaps = 0
 pit = 0
 
+four_student = []
+five_student = []
+cupbabs = []
+pits = []
+
+world = []
+
 
 def write(text, x, y, size):
     font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
@@ -41,7 +52,7 @@ def mk_img_li():
     img_li.append(img)
     img = pygame.image.load('4gi.jpg')
     img_li.append(img)
-    img = pygame.image.load('fivegi.jpg')
+    img = pygame.image.load('5gi.jpg')
     img_li.append(img)
     img = pygame.image.load('pig.jpg')
     img_li.append(img)
@@ -53,6 +64,18 @@ def draw_map():
         pygame.draw.line(screen, BLACK, [265 + 65.5 * i, 10], [265 + 65.5 * i, 665], 5)
         pygame.draw.line(screen, BLACK, [265, 10 + 65.5 * i], [920, 10 + 65.5 * i], 5)
 
+    for i in range(11):
+        for j in range(11):
+            if world[i][j] == '4':
+                draw_img('4gi.jpg',i,j)
+            if world[i][j] == '5':
+                draw_img('5gi.jpg',i,j)
+            if world[i][j] == 's':
+                draw_img('pig.jpg',i,j)
+            if world[i][j] == 'c':
+                draw_img('cupbap.jpg',i,j)
+            if world[i][j] == 'o':
+                draw_img('hamjung.jpg',i,j)
 
 def draw_img(img, x, y):
     nx = 265+16.375*(2*2*(y-1)+1)
@@ -201,6 +224,98 @@ while not done:
     # Go ahead and update the screen with what we've drawn.
     # This MUST happen after all the other drawing commands.
     pygame.display.flip()
+
+    if dis3:
+        draw_map()
+
+        draw_img(img_li[0], 1, 1)
+        draw_img(img_li[0], 2, 1)
+
+
+        for i in range(0, 15):
+            a = []
+            for j in range(0, 15):
+                a.append(0)
+            world.append(a)
+
+        player = dynamic.sagam()
+        player.generate(world, 's')
+
+        for i in range(int(four)):
+            x = dynamic.FourGi()
+            x.generate(world, '4')
+            four_student.append(x)
+
+        for i in range(int(five)):
+            x = dynamic.FiveGi()
+            x.generate(world, '5')
+            five_student.append(x)
+
+        for i in range(int(cupbaps)):
+            x = static_obj.cupbab(world)
+            cupbabs.append(x)
+
+        for i in range(int(pit)):
+            x = static_obj.trap(world)
+            pits.append(x)
+        while True:
+            if player.dead_or_alive() == 'dead':
+
+                fontObj = pygame.font.Font('Daum_Regular.ttf', 32)
+                TitleSurfObj = fontObj.render('"사감선생님의 손전등 배터리가 끝났습니다 - GAME OVER"', True, RED)
+                TitleRectObj = TitleSurfObj.get_rect()
+                TitleRectObj.center = (350, 125)
+                quit()
+
+            else:
+                gameplay.update_map()
+                draw_map()
+                write("손전등 배터 : "+str(player.health),10,10,30)
+                write("점수 : "+str(player.point), 10, 50, 30)
+                write("4기 수 : "+str(len(four_student)), 10, 90, 30)
+                write("5기 수 : "+str(len(five_student)), 10, 130, 30)
+
+                events = pygame.event.get()
+                x = 'p'
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        exit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_w:
+                            x = 'w'
+                        elif event.key == pygame.K_a:
+                            x = 'a'
+                        elif event.key == pygame.K_s:
+                            x = 's'
+                        elif event.key == pygame.K_d:
+                            x = 'd'
+                        elif event.key == pygame.K_q:
+                            x = 'q'
+                        elif event.key == pygame.K_e:
+                            x = 'e'
+                        elif event.key == pygame.K_z:
+                            x = 'z'
+                        elif event.key == pygame.K_c:
+                            x = 'c'
+
+                player.move(x)
+                player.catch_student(four_student, five_student)
+                player.minus_health()
+
+                for i in four_student:
+                    i.move4(world, four_student, five_student, pits)
+                    i.minus_health()
+                    if i.dead_or_alive() == 'dead':
+                        four_student.remove(i)
+                for i in five_student:
+                    i.move5(world, cupbabs, five_student, pits)
+                    i.minus_health()
+                if i.dead_or_alive() == 'dead':
+                    five_student.remove(i)
+
+    pygame.display.flip()
+
+
 
 # Be IDLE friendly
 pygame.quit()
