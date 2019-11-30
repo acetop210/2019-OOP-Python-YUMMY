@@ -29,6 +29,7 @@ five = 0
 cupbaps = 0
 pit = 0
 
+player = dynamic.sagam()
 four_student = []
 five_student = []
 cupbabs = []
@@ -255,7 +256,6 @@ while not done:
                 a.append(0)
             world.append(a)
 
-        player = dynamic.sagam()
         player.generate(world, 's')
 
         for i in range(int(four)):
