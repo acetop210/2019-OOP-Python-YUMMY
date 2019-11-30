@@ -2,7 +2,7 @@
 import pygame, sys
 successes, failures = pygame.init()
 
-screen = pygame.display.set_mode((500, 500))
+screen = pygame.display.set_mode((700, 426))
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -16,29 +16,30 @@ rect = pygame.Rect((0, 0), (32, 32))
 image = pygame.Surface((32, 32))
 image .fill(WHITE)
 
-main_image = pygame.image.load("gisuksar.jpg")
-screen.blit(pygame.transform.scale(main_image, (500, 500)), (0, 0))
+main_image = pygame.image.load("background.jpg")
+screen.blit(pygame.transform.scale(main_image, (700, 426)), (0, 0))
 pygame.display.update()
 
 fontObj = pygame.font.Font('Daum_Regular.ttf', 32)
-TitleSurfObj = fontObj.render('따 방 잡 기 !', True, BLACK, WHITE)
+TitleSurfObj = fontObj.render('따방 잡기', True, WHITE)
 TitleRectObj = TitleSurfObj.get_rect()
-TitleRectObj.center = (250, 125)
+TitleRectObj.center = (350, 125)
 
-MesSurfObj = fontObj.render('Press Start or Quit', True, BLACK, WHITE)
+MesSurfObj = fontObj.render('Press Start or Quit', True, WHITE)
 MesRectObj = MesSurfObj.get_rect()
-MesRectObj.center = (250, 200)
+MesRectObj.center = (350, 200)
 
-StSurfObj = fontObj.render('Start', True, BLACK, GREEN)
+
+StSurfObj = fontObj.render('Start', True, WHITE)
 StRectObj = StSurfObj.get_rect()
-StRectObj.center = (250, 295)
+StRectObj.center = (350, 295)
 
-EdSurfObj = fontObj.render('Quit', True, BLACK, RED)
+EdSurfObj = fontObj.render('Quit', True, WHITE)
 EdRectObj = EdSurfObj.get_rect()
-EdRectObj.center = (250, 375)
+EdRectObj.center = (350, 375)
 
-Startbutton = pygame.Rect(200, 270, 100, 50)
-Quitbutton = pygame.Rect(200, 350, 100, 50)
+Startbutton = pygame.Rect(300, 270, 100, 50)
+Quitbutton = pygame.Rect(300, 350, 100, 50)
 
 while True:
     clock.tick(FPS)
@@ -48,20 +49,19 @@ while True:
             quit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                # `event.pos` is the mouse position.
                 if Startbutton.collidepoint(event.pos):
                     print("게임 시작")
                 if Quitbutton.collidepoint(event.pos):
                     print("게임 종료")
                     quit()
 
-    pygame.draw.rect(screen, GREEN, Startbutton)
-    pygame.draw.rect(screen, RED, Quitbutton)
+    pygame.draw.rect(screen, BLACK, Startbutton)
+    pygame.draw.rect(screen, BLACK, Quitbutton)
     screen.blit(TitleSurfObj, TitleRectObj)
     screen.blit(MesSurfObj, MesRectObj)
     screen.blit(StSurfObj, StRectObj)
     screen.blit(EdSurfObj, EdRectObj)
-    pygame.display.update()  # Or pygame.display.flip()
+    pygame.display.update()
 
 
 
