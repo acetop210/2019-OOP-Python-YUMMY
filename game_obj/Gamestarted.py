@@ -13,8 +13,6 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 rect = pygame.Rect((0, 0), (32, 32))
-image = pygame.Surface((32, 32))
-image .fill(WHITE)
 
 main_image = pygame.image.load("background.jpg")
 screen.blit(pygame.transform.scale(main_image, (700, 426)), (0, 0))
@@ -32,7 +30,7 @@ MesRectObj.center = (350, 200)
 
 StSurfObj = fontObj.render('Start', True, WHITE)
 StRectObj = StSurfObj.get_rect()
-StRectObj.center = (350, 295)
+StRectObj.center = (400, 295)
 
 EdSurfObj = fontObj.render('Quit', True, WHITE)
 EdRectObj = EdSurfObj.get_rect()
@@ -56,11 +54,7 @@ while True:
                     quit()
 
     pygame.draw.rect(screen, BLACK, Startbutton)
-    pygame.draw.rect(screen, BLACK, Quitbutton)
-    screen.blit(TitleSurfObj, TitleRectObj)
-    screen.blit(MesSurfObj, MesRectObj)
     screen.blit(StSurfObj, StRectObj)
-    screen.blit(EdSurfObj, EdRectObj)
     pygame.display.update()
 
 

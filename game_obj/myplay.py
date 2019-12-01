@@ -2,6 +2,8 @@
 import pygame
 import dynamic
 import static_obj
+import gameplay
+
 
 # Initialize the game engine
 pygame.init()
@@ -29,7 +31,35 @@ five = 0
 cupbaps = 0
 pit = 0
 
-player = dynamic.sagam()
+rect = pygame.Rect((0, 0), (32, 32))
+
+main_image = pygame.image.load("background.jpg")
+screen.blit(pygame.transform.scale(main_image, (1200, 675)), (0, 0))
+pygame.display.update()
+
+fontObj = pygame.font.Font('Daum_Regular.ttf', 32)
+TitleSurfObj = fontObj.render('따방 잡기', True, WHITE)
+TitleRectObj = TitleSurfObj.get_rect()
+TitleRectObj.center = (600, 125)
+
+MesSurfObj = fontObj.render('Press Start or Quit', True, WHITE)
+MesRectObj = MesSurfObj.get_rect()
+MesRectObj.center = (600, 200)
+
+
+StSurfObj = fontObj.render('Start', True, WHITE)
+StRectObj = StSurfObj.get_rect()
+StRectObj.center = (600, 295)
+StRectObj2 = StSurfObj.get_rect()
+StRectObj2.center = (870, 322)
+
+EdSurfObj = fontObj.render('Quit', True, WHITE)
+EdRectObj = EdSurfObj.get_rect()
+EdRectObj.center = (600, 375)
+
+Startbutton = pygame.Rect(550, 270, 100, 50)
+Startbutton2 = pygame.Rect(823, 296, 100, 50)
+Quitbutton = pygame.Rect(550, 350, 100, 50)
 four_student = []
 five_student = []
 cupbabs = []
@@ -37,26 +67,6 @@ pits = []
 
 world = []
 
-for i in range(15):
-    x = []
-    for j in range(15):
-        x.append(0)
-    world.append(x)
-
-def update_map():
-    for i in range(15):
-        for j in range(15):
-            world[i][j] = '0'
-    for i in cupbabs:
-        world[i.x_pos][i.y_pos] = 'c'
-    for i in pits:
-        world[i.x_pos][i.y_pos] = 'o'
-    for i in four_student:
-        world[i.x_pos][i.y_pos] = '4'
-    for i in five_student:
-        world[i.x_pos][i.y_pos] = '5'
-
-    world[player.x_pos][player.y_pos] = 's'
 
 def write(text, x, y, size):
     font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
@@ -99,130 +109,201 @@ def draw_map():
 def draw_img(img, x, y):
     nx = 265+16.375*(2*2*(y-1)+1)
     ny = 10+16.375*(2*2*(x-1)+1)
-    real_img = pygame.image.load(img)
-    screen.blit(real_img, (nx, ny))
+    screen.blit(img, (nx, ny))
+
+
+def func_dis1():
+    while True:
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if Startbutton.collidepoint(event.pos):
+                        return False, True
+                    if Quitbutton.collidepoint(event.pos):
+                        return True, False
+        pygame.draw.rect(screen, BLACK, Startbutton)
+        pygame.draw.rect(screen, BLACK, Quitbutton)
+        screen.blit(TitleSurfObj, TitleRectObj)
+        screen.blit(MesSurfObj, MesRectObj)
+        screen.blit(StSurfObj, StRectObj)
+        screen.blit(EdSurfObj, EdRectObj)
+        pygame.display.update()
 
 
 def func_dis2():
     global four, five, cupbaps, pit
-    is_fourgi = False
-    is_fivegi = False
-    is_cupbap = False
-    is_hamjung = False
+    is_fourgi = True
+    is_fivegi = True
+    is_cupbap = True
+    is_hamjung = True
     num = 0
-    write("이 게임은 당신이 사감선생님이 되어 4기와 5기를 잡는 게임입니다! 원하는 4기와 5기, 컵밥과 함정의 수를 순서대로 입력 해 주세요 모두 15를 넘어선 안됩니다!", 10, 10, 35)
-    pygame.display.flip()
-    write("4기 수", 90, 10, 30)
-    write("5기 수", 90, 50, 30)
-    write("컵밥 수", 90, 90, 30)
-    write("함정 수", 90, 130, 30)
-    while not is_fourgi:
-        write("4기를 몇 명으로 할지 입력해주세요", 50, 10, 30)
-        pygame.display.flip()
-        pygame.event.get()
-        if event.type() == pygame.KEYDOWN:
-            pressed = pygame.key.get_pressed()
-            buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-            if buttons[0] != "return" and buttons[0].isdigit() is False:
-                write("숫자를 입력해주세요", 500, 300, 30)
-            elif buttons[0].isdigit() is True:
-                num *= 10
-                num += int(buttons[0])
+    get_input = True
+    print_input = False
+
+    while get_input:
+        clock.tick(60)
+        screen.fill(WHITE)
+        write("이 게임은 당신이 사감선생님이 되어 4기와 5기를 잡는 게임입니다!", 10, 10, 30)
+        write("원하는 4기와 5기, 컵밥과 함정의 수를 순서대로 입력 해 주세요 모두 15를 넘어선 안됩니다!", 10, 45, 30)
+        write("아무 키나 입력해주세요", 500, 300, 30)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.KEYDOWN:
+                is_fourgi = False
             else:
-                if num == 0:
-                    write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
-                if num > 15:
-                    write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 500, 300, 30)
-                    num = 0
-                else:
-                    four = num
-                    num = 0
-                    is_fourgi = True
+                continue
+        pygame.display.flip()
+        screen.fill(WHITE)
+        while not is_fourgi:
+            write("4기를 몇 명으로 할지 입력해주세요", 10, 50, 30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    screen.fill(WHITE)
+                    pressed = pygame.key.get_pressed()
+                    buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
+                    print(buttons[0])
+                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                        write("숫자를 입력해주세요", 500, 300, 30)
+                    elif buttons[0].isdigit() is True:
+                        num *= 10
+                        num += int(buttons[0])
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    else:
+                        if num == 0:
+                            write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 350, 300, 30)
+                        elif num > 15:
+                            write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 300, 300, 30)
+                            num = 0
+                        else:
+                            four = num
+                            num = 0
+                            is_fourgi = True
+                            is_fivegi = False
+            pygame.display.flip()
+
+        screen.fill(WHITE)
+        while not is_fivegi:
+            write("5기를 몇 명으로 할지 입력해주세요", 10, 50, 30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    screen.fill(WHITE)
+                    pressed = pygame.key.get_pressed()
+                    buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
+                    print(buttons[0])
+                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                        write("숫자를 입력해주세요", 500, 300, 30)
+                    elif buttons[0].isdigit() is True:
+                        num *= 10
+                        num += int(buttons[0])
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    else:
+                        if num == 0:
+                            write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
+                        elif num > 15:
+                            write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 300, 300, 30)
+                            num = 0
+                        else:
+                            five = num
+                            num = 0
+                            is_fivegi = True
+                            is_cupbap = False
+            pygame.display.flip()
+
+        screen.fill(WHITE)
+        while not is_cupbap:
+            write("컵밥을 몇 개로 할지 입력해주세요", 10, 50, 30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    screen.fill(WHITE)
+                    pressed = pygame.key.get_pressed()
+                    buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
+                    print(buttons[0])
+                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                        write("숫자를 입력해주세요", 500, 300, 30)
+                    elif buttons[0].isdigit() is True:
+                        num *= 10
+                        num += int(buttons[0])
+                        write("{}개로 입력하셨습니다".format(num), 500, 300, 30)
+                    else:
+                        if num == 0:
+                            write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
+                        elif num > 15:
+                            write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 300, 300, 30)
+                            num = 0
+                        else:
+                            cupbaps = num
+                            num = 0
+                            is_cupbap = True
+                            is_hamjung = False
+            pygame.display.flip()
+
+        screen.fill(WHITE)
+        while not is_hamjung:
+            write("함정을 몇 개로 할지 입력해주세요", 10, 50, 30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    screen.fill(WHITE)
+                    pressed = pygame.key.get_pressed()
+                    buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
+                    print(buttons[0])
+                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                        write("숫자를 입력해주세요", 500, 300, 30)
+                    elif buttons[0].isdigit() is True:
+                        num *= 10
+                        num += int(buttons[0])
+                        write("{}개로 입력하셨습니다".format(num), 500, 300, 30)
+                    else:
+                        if num == 0:
+                            write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
+                        elif num > 15:
+                            write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 300, 300, 30)
+                            num = 0
+                        else:
+                            pit = num
+                            num = 0
+                            is_hamjung = True
+                            get_input = False
+                            print_input = True
+            pygame.display.flip()
+
+    screen.fill(WHITE)
+    while print_input:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if Startbutton2.collidepoint(event.pos):
+                        return False, True
+
+        write("4기 수: {}".format(four), 300, 50, 30)
+        write("5기 수: {}".format(five), 300, 200, 30)
+        write("컵밥 수: {}".format(cupbaps), 300, 350, 30)
+        write("함정 수: {}".format(pit), 300, 500, 30)
+        write("게임을 시작하려면 start 를 눌러주세요", 600, 300, 30)
+        pygame.draw.rect(screen, BLACK, Startbutton2)
+        screen.blit(StSurfObj, StRectObj2)
         pygame.display.flip()
 
-    while not is_fivegi:
-        write("5기를 몇 명으로 할지 입력해주세요", 50, 10, 30)
-        pygame.display.flip()
-        write("5기를 몇 명으로 할지 입력해주세요", 50, 10, 30)
-        pygame.event.get()
-        if event.type() == pygame.KEYDOWN:
-            pressed = pygame.key.get_pressed()
-            buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-            if buttons[0] != "return" and buttons[0].isdigit() is False:
-                write("숫자를 입력해주세요", 500, 300, 30)
-            elif buttons[0].isdigit() is True:
-                num *= 10
-                num += int(buttons[0])
-            else:
-                if num == 0:
-                    write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
-                if num > 15:
-                    write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 500, 300, 30)
-                    num = 0
-                else:
-                    write("좋아요, 5기는 {}명입니다".format(num), 500, 300, 30)
-                    five = num
-                    num = 0
-                    is_fivegi = True
-        pygame.display.flip()
 
-    while not is_cupbap:
-        write("컵밥을 몇 개로 할지 입력해주세요", 50, 10, 30)
-        pygame.display.flip()
-        write("컵밥을 몇 개로 할지 입력해주세요", 50, 10, 30)
-        pygame.event.get()
-        if event.type() == pygame.KEYDOWN:
-            pressed = pygame.key.get_pressed()
-            buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-            if buttons[0] != "return" and buttons[0].isdigit() is False:
-                write("숫자를 입력해주세요", 500, 300, 30)
-            elif buttons[0].isdigit() is True:
-                num *= 10
-                num += int(buttons[0])
-            else:
-                if num == 0:
-                    write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
-                if num > 15:
-                    write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 500, 300, 30)
-                    num = 0
-                else:
-                    write("좋아요, 컵밥은 {}개입니다".format(num), 500, 300, 30)
-                    cupbaps = num
-                    num = 0
-                    is_cupbap = True
-        pygame.display.flip()
-
-    while not is_hamjung:
-        write("함정을 몇 개로 할지 입력해주세요", 50, 10, 30)
-        pygame.display.flip()
-        write("함정을 몇 개로 할지 입력해주세요", 50, 10, 30)
-        pygame.event.get()
-        if event.type() == pygame.KEYDOWN:
-            pressed = pygame.key.get_pressed()
-            buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-            if buttons[0] != "return" and buttons[0].isdigit() is False:
-                write("숫자를 입력해주세요", 500, 300, 30)
-            elif buttons[0].isdigit() is True:
-                num *= 10
-                num += int(buttons[0])
-            else:
-                if num == 0:
-                    write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
-                if num > 15:
-                    write("숫자가 15가 넘어 가는군요. 처음부터 다시 입력해주세요", 500, 300, 30)
-                    num = 0
-                else:
-                    write("좋아요, 함정은 {}개입니다".format(num), 500, 300, 30)
-                    pit = num
-                    num = 0
-                    is_hamjung = True
-        pygame.display.flip()
 
 mk_img_li()
 
-dis1 = False
+dis1 = True
 dis2 = False
-dis3 = True
+dis3 = False
 
 while not done:
 
@@ -232,22 +313,23 @@ while not done:
         if event.type == pygame.QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
 
-    screen.fill(WHITE)
     if dis1:
-        pass
+        print("dis1")
+        ch, dis2 = func_dis1()
+        if not ch:
+            dis1 = ch
+        else:
+            quit()
 
     if dis2:
-        draw_map()
+        dis2, dis3 = func_dis2()
 
-        draw_img(img_li[0], 1, 1)
-        draw_img(img_li[0], 2, 1)
-    # Go ahead and update the screen with what we've drawn.
-    # This MUST happen after all the other drawing commands.
-    pygame.display.flip()
 
     if dis3:
         draw_map()
 
+        draw_img(img_li[0], 1, 1)
+        draw_img(img_li[0], 2, 1)
 
 
         for i in range(0, 15):
@@ -256,6 +338,7 @@ while not done:
                 a.append(0)
             world.append(a)
 
+        player = dynamic.sagam()
         player.generate(world, 's')
 
         for i in range(int(four)):
@@ -285,7 +368,7 @@ while not done:
                 quit()
 
             else:
-                update_map()
+                gameplay.update_map()
                 draw_map()
                 write("손전등 배터 : "+str(player.health),10,10,30)
                 write("점수 : "+str(player.point), 10, 50, 30)
