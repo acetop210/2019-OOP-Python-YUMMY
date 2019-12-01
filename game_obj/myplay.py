@@ -2,7 +2,7 @@
 import pygame
 import dynamic
 import static_obj
-import gameplay
+
 
 
 # Initialize the game engine
@@ -60,6 +60,8 @@ EdRectObj.center = (600, 375)
 Startbutton = pygame.Rect(550, 270, 100, 50)
 Startbutton2 = pygame.Rect(823, 296, 100, 50)
 Quitbutton = pygame.Rect(550, 350, 100, 50)
+
+
 four_student = []
 five_student = []
 cupbabs = []
@@ -67,6 +69,24 @@ pits = []
 
 world = []
 
+for i in range(15):
+    x = []
+    for j in range(15):
+        x.append(0)
+    world.append(x)
+
+def update_map():
+    for i in range(15):
+        for j in range(15):
+            world[i][j] = '0'
+    for i in cupbabs:
+        world[i.x_pos][i.y_pos] = 'c'
+    for i in pits:
+        world[i.x_pos][i.y_pos] = 'o'
+    for i in four_student:
+        world[i.x_pos][i.y_pos] = '4'
+    for i in five_student:
+        world[i.x_pos][i.y_pos] = '5'
 
 def write(text, x, y, size):
     font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
@@ -109,7 +129,8 @@ def draw_map():
 def draw_img(img, x, y):
     nx = 265+16.375*(2*2*(y-1)+1)
     ny = 10+16.375*(2*2*(x-1)+1)
-    screen.blit(img, (nx, ny))
+    imgs = pygame.image.load(img)
+    screen.blit(imgs, (nx, ny))
 
 
 def func_dis1():
@@ -328,9 +349,6 @@ while not done:
     if dis3:
         draw_map()
 
-        draw_img(img_li[0], 1, 1)
-        draw_img(img_li[0], 2, 1)
-
 
         for i in range(0, 15):
             a = []
@@ -368,7 +386,7 @@ while not done:
                 quit()
 
             else:
-                gameplay.update_map()
+                update_map()
                 draw_map()
                 write("손전등 배터 : "+str(player.health),10,10,30)
                 write("점수 : "+str(player.point), 10, 50, 30)
