@@ -8,6 +8,7 @@ class Dynamic():
         self.y_pos = 0
 
     def generate(self, world, character):
+        flag = 0
         if len(world) == 0:
             self.x_pos = random.randint(0, 9)
             self.y_pos = random.randint(0, 9)
@@ -70,7 +71,6 @@ class sagam(Dynamic):
         self.point = 0
 
     def catch_student(self, student_field_4, student_field_5):
-
         for i in student_field_4:
             if self.x_pos == i.x_pos and self.x_pos == i.y_pos:
                 self.point = self.point + 2
