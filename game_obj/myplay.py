@@ -346,16 +346,9 @@ while not done:
         dis2, dis3 = func_dis2()
 
 
+
     if dis3:
         draw_map()
-
-
-        for i in range(0, 15):
-            a = []
-            for j in range(0, 15):
-                a.append(0)
-            world.append(a)
-
         player = dynamic.sagam()
         player.generate(world, 's')
 
@@ -377,6 +370,9 @@ while not done:
             x = static_obj.trap(world)
             pits.append(x)
         while True:
+
+            print("sed")
+
             if player.dead_or_alive() == 'dead':
 
                 fontObj = pygame.font.Font('Daum_Regular.ttf', 32)
@@ -386,35 +382,41 @@ while not done:
                 quit()
 
             else:
+                screen.fill(WHITE)
                 update_map()
                 draw_map()
                 write("손전등 배터 : "+str(player.health),10,10,30)
                 write("점수 : "+str(player.point), 10, 50, 30)
                 write("4기 수 : "+str(len(four_student)), 10, 90, 30)
                 write("5기 수 : "+str(len(five_student)), 10, 130, 30)
+                pygame.display.flip()
+                key = True
 
-                events = pygame.event.get()
-                x = 'p'
-                for event in events:
-                    if event.type == pygame.QUIT:
-                        exit()
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_w:
-                            x = 'w'
-                        elif event.key == pygame.K_a:
-                            x = 'a'
-                        elif event.key == pygame.K_s:
-                            x = 's'
-                        elif event.key == pygame.K_d:
-                            x = 'd'
-                        elif event.key == pygame.K_q:
-                            x = 'q'
-                        elif event.key == pygame.K_e:
-                            x = 'e'
-                        elif event.key == pygame.K_z:
-                            x = 'z'
-                        elif event.key == pygame.K_c:
-                            x = 'c'
+                while key:
+                    events = pygame.event.get()
+                    x = 'p'
+                    for event in events:
+                        if event.type == pygame.QUIT:
+                            exit()
+                        if event.type == pygame.KEYDOWN:
+                            key = False
+
+                            if event.key == pygame.K_w:
+                                x = 'w'
+                            elif event.key == pygame.K_a:
+                                x = 'a'
+                            elif event.key == pygame.K_s:
+                                x = 's'
+                            elif event.key == pygame.K_d:
+                                x = 'd'
+                            elif event.key == pygame.K_q:
+                                x = 'q'
+                            elif event.key == pygame.K_e:
+                                x = 'e'
+                            elif event.key == pygame.K_z:
+                                x = 'z'
+                            elif event.key == pygame.K_c:
+                                x = 'c'
 
                 player.move(x)
                 player.catch_student(four_student, five_student)
@@ -431,7 +433,6 @@ while not done:
                 if i.dead_or_alive() == 'dead':
                     five_student.remove(i)
 
-    pygame.display.flip()
 
 
 
