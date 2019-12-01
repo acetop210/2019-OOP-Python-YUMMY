@@ -68,7 +68,7 @@ class Dynamic():
 class sagam(Dynamic):
     def __init__(self):
         Dynamic.__init__(self)
-        self.health = 5
+        self.health = 55
         self.point = 0
 
 
@@ -77,11 +77,14 @@ class sagam(Dynamic):
             if self.x_pos == i.x_pos and self.x_pos == i.y_pos:
                 self.point = self.point + 2
                 student_field_4.remove(i)
+                self.health = 55
+
 
         for i in student_field_5:
             if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
                 self.point = self.point + 1
                 student_field_5.remove(i)
+                self.health = 55
 
 
 class FourGi(Dynamic):
@@ -152,6 +155,7 @@ class FiveGi(Dynamic):
                 self.eatcup(cup_list)
                 find_cup = True
                 break
+
         if find_cup is False:
             self.random_move(world)
             self.fallen(five_list, trap_list)

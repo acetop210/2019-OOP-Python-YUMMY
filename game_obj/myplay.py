@@ -2,6 +2,7 @@
 import pygame
 import dynamic
 import static_obj
+import time
 
 
 
@@ -87,6 +88,7 @@ def update_map():
         world[i.x_pos][i.y_pos] = '4'
     for i in five_student:
         world[i.x_pos][i.y_pos] = '5'
+    world[player.x_pos][player.y_pos] = 's'
 
 def write(text, x, y, size):
     font = pygame.font.Font('NanumSquare_acL.ttf', size)  # 폰트 설정
@@ -371,21 +373,19 @@ while not done:
             pits.append(x)
         while True:
 
-            print("sed")
+
 
             if player.dead_or_alive() == 'dead':
 
-                fontObj = pygame.font.Font('Daum_Regular.ttf', 32)
-                TitleSurfObj = fontObj.render('"사감선생님의 손전등 배터리가 끝났습니다 - GAME OVER"', True, RED)
-                TitleRectObj = TitleSurfObj.get_rect()
-                TitleRectObj.center = (350, 125)
-                quit()
+                write("사감선생님의 손전등 배터리가 끝났습니다 - GAME OVER",50,50,50)
+                pygame.display.flip()
+
 
             else:
                 screen.fill(WHITE)
                 update_map()
                 draw_map()
-                write("손전등 배터 : "+str(player.health),10,10,30)
+                write("손전등 배터리 : "+str(player.health),10,10,30)
                 write("점수 : "+str(player.point), 10, 50, 30)
                 write("4기 수 : "+str(len(four_student)), 10, 90, 30)
                 write("5기 수 : "+str(len(five_student)), 10, 130, 30)
@@ -417,20 +417,29 @@ while not done:
                                 x = 'z'
                             elif event.key == pygame.K_c:
                                 x = 'c'
+                            else:
+                                key = True
 
                 player.move(x)
+                update_map()
                 player.catch_student(four_student, five_student)
+                update_map()
+                pygame.display.flip()
                 player.minus_health()
 
                 for i in four_student:
                     i.move4(world, four_student, five_student, pits)
+                    update_map()
                     i.minus_health()
                     if i.dead_or_alive() == 'dead':
                         four_student.remove(i)
+                        update_map()
                 for i in five_student:
                     i.move5(world, cupbabs, five_student, pits)
+                    update_map()
                     i.minus_health()
                 if i.dead_or_alive() == 'dead':
+                    update_map()
                     five_student.remove(i)
 
 
