@@ -28,7 +28,7 @@ class Dynamic():
 
     def move(self,direction):
         a = {'w' : (-1,0), 's' : (1,0), 'a' : (0,-1), 'd' : (0,1), 'q' : (-1,-1), 'e' : (-1,1), 'z' : (1,-1), 'c' : (1,1)}
-        if direction in a and 1<= self.x_pos + a[direction][0] <= 11 and 1<= self.y_pos + a[direction][1] <= 11:
+        if direction in a and 1<= self.x_pos + a[direction][0] < 11 and 1<= self.y_pos + a[direction][1] < 11:
             self.x_pos = self.x_pos + a[direction][0]
             self.y_pos = self.y_pos + a[direction][1]
 
@@ -39,7 +39,7 @@ class Dynamic():
         new_x = self.x_pos
         new_y = self.y_pos
 
-        while world[new_x][new_y] != '0':
+        while world[new_x][new_y] != '0' and ( 1<= new_x <= 10 and 1<= new_y <=10 ):
             new_x = self.x_pos
             new_y = self.y_pos
 
@@ -105,7 +105,7 @@ class FourGi(Dynamic):
         for i in range(4):
             nx = self.x_pos + dx[i]
             ny = self.y_pos + dy[i]
-            if nx <= 0 or nx > 10 or ny <= 0 or ny > 10:
+            if not (1<= nx <= 10 and 1 <= ny <= 10):
                 continue
             if world[nx][ny] == '5':
                 self.x_pos = nx
