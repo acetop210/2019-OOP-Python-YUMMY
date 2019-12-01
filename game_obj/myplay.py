@@ -196,7 +196,6 @@ def func_dis2():
                     screen.fill(WHITE)
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                    print(buttons[0])
                     if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
@@ -229,7 +228,6 @@ def func_dis2():
                     screen.fill(WHITE)
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                    print(buttons[0])
                     if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
@@ -262,7 +260,6 @@ def func_dis2():
                     screen.fill(WHITE)
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                    print(buttons[0])
                     if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
@@ -295,7 +292,6 @@ def func_dis2():
                     screen.fill(WHITE)
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                    print(buttons[0])
                     if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
@@ -376,7 +372,6 @@ def func_dis3():
                 if event.type == pygame.KEYDOWN:
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                    print(buttons[0])
                     if buttons[0] == "return":
                         return False, True
             pygame.display.flip()
@@ -448,7 +443,6 @@ def func_dis4():
             if event.type == pygame.KEYDOWN:
                 pressed = pygame.key.get_pressed()
                 buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
-                print(buttons[0])
                 if buttons[0] == 'y':
                     make_map()
                     return True
@@ -472,7 +466,6 @@ while not done:
             done = True  # Flag that we are done so we exit this loop
 
     if dis1:
-        print("dis1")
         ch, dis2 = func_dis1()
         if not ch:
             dis1 = ch

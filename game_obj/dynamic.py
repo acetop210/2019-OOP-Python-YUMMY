@@ -37,7 +37,6 @@ class Dynamic():
         pointx = [1, -1]
         save_xpos = self.x_pos
         save_ypos = self.y_pos
-        print("savex:",save_xpos,"savey:",save_ypos)
         new_x = self.x_pos
         new_y = self.y_pos
         cnt = 0
@@ -84,14 +83,12 @@ class sagam(Dynamic):
             if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
                 self.point = self.point + 2
                 student_field_4.remove(i)
-                print(i)
                 break
 
         for i in student_field_5:
             if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
                 self.point = self.point + 1
                 student_field_5.remove(i)
-                print(i)
 
 
 class FourGi(Dynamic):
@@ -161,7 +158,6 @@ class FiveGi(Dynamic):
                 find_cup = True
                 break
         if find_cup is False:
-            print("rm5")
             self.random_move(world)
             self.fallen(five_list, trap_list)
 
