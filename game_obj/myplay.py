@@ -197,11 +197,14 @@ def func_dis2():
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
                     print(buttons[0])
-                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                    if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
                         num *= 10
                         num += int(buttons[0])
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    elif buttons[0] == "backspace":
+                        num //= 10
                         write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
                     else:
                         if num == 0:
@@ -227,11 +230,14 @@ def func_dis2():
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
                     print(buttons[0])
-                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                    if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
                         num *= 10
                         num += int(buttons[0])
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    elif buttons[0] == "backspace":
+                        num //= 10
                         write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
                     else:
                         if num == 0:
@@ -257,12 +263,15 @@ def func_dis2():
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
                     print(buttons[0])
-                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                    if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
                         num *= 10
                         num += int(buttons[0])
-                        write("{}개로 입력하셨습니다".format(num), 500, 300, 30)
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    elif buttons[0] == "backspace":
+                        num //= 10
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
                     else:
                         if num == 0:
                             write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
@@ -287,12 +296,15 @@ def func_dis2():
                     pressed = pygame.key.get_pressed()
                     buttons = [pygame.key.name(k) for k, v in enumerate(pressed) if v]
                     print(buttons[0])
-                    if buttons[0] != "return" and buttons[0].isdigit() is False:
+                    if buttons[0] != "return" and buttons[0] != "backspace" and buttons[0].isdigit() is False:
                         write("숫자를 입력해주세요", 500, 300, 30)
                     elif buttons[0].isdigit() is True:
                         num *= 10
                         num += int(buttons[0])
-                        write("{}개로 입력하셨습니다".format(num), 500, 300, 30)
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
+                    elif buttons[0] == "backspace":
+                        num //= 10
+                        write("{}명으로 입력하셨습니다".format(num), 500, 300, 30)
                     else:
                         if num == 0:
                             write("숫자를 입력하지 않아 입력을 종료할 수 없습니다", 500, 300, 30)
@@ -348,14 +360,16 @@ def func_dis3():
         x = static_obj.trap(world)
         pits.append(x)
 
+    x = ""
     while game:
         screen.fill(WHITE)
 
         if player.dead_or_alive() == 'dead':
             screen.fill(WHITE)
             write("사감선생님의 손전등 배터리가 끝났습니다", 400, 200, 30)
-            write("Game Over", 500, 400, 40)
-            write("Enter를 누르세요", 460, 500, 30)
+            write("점수: {}".format(player.point), 560, 300, 30)
+            write("Game Over", 510, 400, 40)
+            write("Enter를 누르세요", 500, 500, 30)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     quit()
@@ -370,6 +384,8 @@ def func_dis3():
         else:
             update_map(player)
             draw_map()
+            if x != "":
+                write("{}를 누르셨습니다".format(x), 10, 300, 20)
             write("손전등 배터리 : " + str(player.health), 10, 10, 30)
             write("점수 : " + str(player.point), 10, 50, 30)
             write("4기 수 : " + str(len(four_student)), 10, 90, 30)
@@ -377,7 +393,6 @@ def func_dis3():
             write("방향키를 입력하세요", 10, 200, 20)
             pygame.display.flip()
 
-            x = 'p'
             get_event = False
             while not get_event:
                 events = pygame.event.get()
@@ -385,17 +400,9 @@ def func_dis3():
                     if event.type == pygame.QUIT:
                         quit()
                     if event.type == pygame.KEYDOWN:
-                        screen.fill(WHITE)
-                        draw_map()
-                        write("손전등 배터리 : " + str(player.health), 10, 10, 30)
-                        write("점수 : " + str(player.point), 10, 50, 30)
-                        write("4기 수 : " + str(len(four_student)), 10, 90, 30)
-                        write("5기 수 : " + str(len(five_student)), 10, 130, 30)
-                        write("방향키를 입력하세요", 10, 200, 20)
                         get_event = True
                         if event.key == pygame.K_w:
                             x = 'w'
-                            write("{}를 누르셨습니다".format(x), 10, 200, 20)
                         elif event.key == pygame.K_a:
                             x = 'a'
                         elif event.key == pygame.K_s:
@@ -412,30 +419,23 @@ def func_dis3():
                             x = 'c'
                         else:
                             get_event = False
-            pygame.display.flip()
             player.move(x)
             player.catch_student(four_student, five_student)
             player.minus_health()
-
+            update_map(player)
             for i in four_student:
                 i.move4(world, four_student, five_student, pits)
                 i.minus_health()
+                update_map(player)
                 if i.dead_or_alive() == 'dead' and i in four_student:
                     four_student.remove(i)
             for i in five_student:
                 i.move5(world, cupbap, five_student, pits)
                 i.minus_health()
+                update_map(player)
                 if i.dead_or_alive() == 'dead' and i in five_student:
                     five_student.remove(i)
-            print("4: ", len(four_student), "5: ", len(five_student))
-            screen.fill(WHITE)
-            draw_map()
-            write("손전등 배터리 : " + str(player.health), 10, 10, 30)
-            write("점수 : " + str(player.point), 10, 50, 30)
-            write("4기 수 : " + str(len(four_student)), 10, 90, 30)
-            write("5기 수 : " + str(len(five_student)), 10, 130, 30)
-            write("방향키를 입력하세요", 10, 200, 20)
-            pygame.display.flip()
+
 
 def func_dis4():
     regame = True

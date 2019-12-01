@@ -37,11 +37,12 @@ class Dynamic():
         pointx = [1, -1]
         save_xpos = self.x_pos
         save_ypos = self.y_pos
+        print("savex:",save_xpos,"savey:",save_ypos)
         new_x = self.x_pos
         new_y = self.y_pos
         cnt = 0
 
-        while (new_x<0 or new_x>=10 or new_y<0 or new_y>=10 or world[new_x][new_y] == '4' or world[new_x][new_y] == '5' or world[new_x][new_y] == 's') and cnt < 20:
+        while ((new_x<0 or new_x>=10 or new_y<0 or new_y>=10) or (world[new_x][new_y] != 0 and world[new_x][new_y] != 'o' and world[new_x][new_y] != 'c')) and cnt < 100:
             cnt += 1
             new_x = self.x_pos
             new_y = self.y_pos
@@ -58,7 +59,8 @@ class Dynamic():
 
         self.x_pos = new_x
         self.y_pos = new_y
-        if cnt > 20:
+
+        if cnt >= 100:
             self.x_pos = save_xpos
             self.y_pos = save_ypos
 
@@ -159,6 +161,7 @@ class FiveGi(Dynamic):
                 find_cup = True
                 break
         if find_cup is False:
+            print("rm5")
             self.random_move(world)
             self.fallen(five_list, trap_list)
 
