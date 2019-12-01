@@ -51,7 +51,6 @@ class trap(static):
         static.__init__(self, field)
     
 
-        
 
 
 
