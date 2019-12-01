@@ -10,14 +10,14 @@ class static(): #움직이지 않는 객체의 클래스
 
         flag = 0
         if len(field) == 0:
-            self.x_pos = random.randint(1, 10)
-            self.y_pos = random.randint(1, 10)
+            self.x_pos = random.randint(0, 9)
+            self.y_pos = random.randint(0, 9)
             flag=1
         else:
             while True:
                 flag = 0
-                r_rand = random.randint(1,10)
-                c_rand = random.randint(1,10)
+                r_rand = random.randint(0,9)
+                c_rand = random.randint(0,9)
                 if field[r_rand][c_rand] == 0:
                     self.x_pos = r_rand
                     self.y_pos = c_rand
