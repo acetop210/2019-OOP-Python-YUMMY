@@ -491,3 +491,9 @@ while not done:
 
 # Be IDLE friendly
 pygame.quit()
+
+
+"""
+코드 참고
+https://harang16.blogspot.com/2016/05/pygame-4.html
+"""
