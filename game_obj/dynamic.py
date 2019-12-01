@@ -27,7 +27,7 @@ class Dynamic():
 
     def move(self, direction):
         a = {'w' : (-1,0), 's' : (1,0), 'a' : (0,-1), 'd' : (0,1), 'q' : (-1,-1), 'e' : (-1,1), 'z' : (1,-1), 'c' : (1,1)}
-        if direction in a and 0 <= self.x_pos + a[direction][0] < 10 and 0<= self.y_pos + a[direction][1] < 10:
+        if direction in a and 0 <= self.x_pos + a[direction][0] < 10 and 0 <= self.y_pos + a[direction][1] < 10:
             self.x_pos = self.x_pos + a[direction][0]
             self.y_pos = self.y_pos + a[direction][1]
 
@@ -38,7 +38,8 @@ class Dynamic():
         new_x = self.x_pos
         new_y = self.y_pos
 
-        while new_x<0 or new_x>=10 or new_y<0 or new_y>=10 or world[new_x][new_y] != 0:
+        while new_x<0 or new_x>=10 or new_y<0 or new_y>=10 or world[new_x][new_y] != 0 or world[new_x][new_y] != 'o' or world[new_x][new_y] != 'c':
+            print("")
             new_x = self.x_pos
             new_y = self.y_pos
 
@@ -72,16 +73,18 @@ class sagam(Dynamic):
 
     def catch_student(self, student_field_4, student_field_5):
         for i in student_field_4:
-            if self.x_pos == i.x_pos and self.x_pos == i.y_pos:
+            if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
                 self.point = self.point + 2
                 student_field_4.remove(i)
                 print(i)
+                break
 
         for i in student_field_5:
             if self.x_pos == i.x_pos and self.y_pos == i.y_pos:
                 self.point = self.point + 1
                 student_field_5.remove(i)
                 print(i)
+        print("cover")
 
 
 class FourGi(Dynamic):
@@ -111,6 +114,7 @@ class FourGi(Dynamic):
                 find5 = True
                 break
         if find5 is False:
+            print("ram4")
             self.random_move(world)
             self.fallen(four_list, trap_list)
 
@@ -151,6 +155,7 @@ class FiveGi(Dynamic):
                 find_cup = True
                 break
         if find_cup is False:
+            print("ram5")
             self.random_move(world)
             self.fallen(five_list, trap_list)
 

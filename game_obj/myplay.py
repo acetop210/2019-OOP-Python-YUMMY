@@ -132,6 +132,7 @@ def draw_map():
             if world[i][j] == 'o':
                 draw_img(img_li[1], i+1, j+1)
 
+
 def draw_img(img, x, y):
     nx = 265+16.375*(2*2*(y-1)+1)
     ny = 10+16.375*(2*2*(x-1)+1)
@@ -414,18 +415,26 @@ def func_dis3():
             pygame.display.flip()
             player.move(x)
             player.catch_student(four_student, five_student)
+            print("cover")
             player.minus_health()
+            print("mh")
 
             for i in four_student:
                 i.move4(world, four_student, five_student, pits)
+                print("m4")
                 i.minus_health()
+                print("mh4")
                 if i.dead_or_alive() == 'dead':
                     four_student.remove(i)
+                print("rs4")
             for i in five_student:
                 i.move5(world, cupbap, five_student, pits)
+                print("m5")
                 i.minus_health()
+                print("mh5")
                 if i.dead_or_alive() == 'dead':
-                    five_student.remove(i)
+                    four_student.remove(i)
+                print("rs5")
 
 
 def func_dis4():
