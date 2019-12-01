@@ -45,7 +45,7 @@ class cupbab(static): #컵밥 클래스
         field[self.x_pos][self.y_pos] = 0
 
 
-class trap(static): #함정 클래스
+class trap(static):
 
     def __init__(self, field):
         static.__init__(self, field)
