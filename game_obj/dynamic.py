@@ -35,11 +35,14 @@ class Dynamic():
     def random_move(self, world):
         point = [1, 0, -1]
         pointx = [1, -1]
+        save_xpos = self.x_pos
+        save_ypos = self.y_pos
         new_x = self.x_pos
         new_y = self.y_pos
+        cnt = 0
 
-        while new_x<0 or new_x>=10 or new_y<0 or new_y>=10 or world[new_x][new_y] != 0 or world[new_x][new_y] != 'o' or world[new_x][new_y] != 'c':
-            print("")
+        while (new_x<0 or new_x>=10 or new_y<0 or new_y>=10 or world[new_x][new_y] == '4' or world[new_x][new_y] == '5' or world[new_x][new_y] == 's') and cnt < 20:
+            cnt += 1
             new_x = self.x_pos
             new_y = self.y_pos
 
@@ -55,6 +58,9 @@ class Dynamic():
 
         self.x_pos = new_x
         self.y_pos = new_y
+        if cnt > 20:
+            self.x_pos = save_xpos
+            self.y_pos = save_ypos
 
     def minus_health(self):
         self.health = self.health - 1
@@ -84,7 +90,6 @@ class sagam(Dynamic):
                 self.point = self.point + 1
                 student_field_5.remove(i)
                 print(i)
-        print("cover")
 
 
 class FourGi(Dynamic):
@@ -114,7 +119,6 @@ class FourGi(Dynamic):
                 find5 = True
                 break
         if find5 is False:
-            print("ram4")
             self.random_move(world)
             self.fallen(four_list, trap_list)
 
@@ -155,7 +159,6 @@ class FiveGi(Dynamic):
                 find_cup = True
                 break
         if find_cup is False:
-            print("ram5")
             self.random_move(world)
             self.fallen(five_list, trap_list)
 

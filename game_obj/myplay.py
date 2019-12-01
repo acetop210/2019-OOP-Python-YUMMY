@@ -412,29 +412,22 @@ def func_dis3():
                             x = 'c'
                         else:
                             get_event = False
+                print("4: ", len(four_student), "5: ", len(five_student))
             pygame.display.flip()
             player.move(x)
             player.catch_student(four_student, five_student)
-            print("cover")
             player.minus_health()
-            print("mh")
 
             for i in four_student:
                 i.move4(world, four_student, five_student, pits)
-                print("m4")
                 i.minus_health()
-                print("mh4")
-                if i.dead_or_alive() == 'dead':
+                if i.dead_or_alive() == 'dead' and i in four_student:
                     four_student.remove(i)
-                print("rs4")
             for i in five_student:
                 i.move5(world, cupbap, five_student, pits)
-                print("m5")
                 i.minus_health()
-                print("mh5")
-                if i.dead_or_alive() == 'dead':
-                    four_student.remove(i)
-                print("rs5")
+                if i.dead_or_alive() == 'dead' and i in five_student:
+                    five_student.remove(i)
 
 
 def func_dis4():
