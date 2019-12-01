@@ -121,16 +121,16 @@ def draw_map():
 
     for i in range(10):
         for j in range(10):
+            if world[i][j] == 'c':
+                draw_img(img_li[0], i+1, j+1)
+            if world[i][j] == 'o':
+                draw_img(img_li[1], i+1, j+1)
             if world[i][j] == '4':
                 draw_img(img_li[2], i+1, j+1)
             if world[i][j] == '5':
                 draw_img(img_li[3], i+1, j+1)
             if world[i][j] == 's':
                 draw_img(img_li[4], i+1, j+1)
-            if world[i][j] == 'c':
-                draw_img(img_li[0], i+1, j+1)
-            if world[i][j] == 'o':
-                draw_img(img_li[1], i+1, j+1)
 
 
 def draw_img(img, x, y):
@@ -412,7 +412,6 @@ def func_dis3():
                             x = 'c'
                         else:
                             get_event = False
-                print("4: ", len(four_student), "5: ", len(five_student))
             pygame.display.flip()
             player.move(x)
             player.catch_student(four_student, five_student)
@@ -428,7 +427,15 @@ def func_dis3():
                 i.minus_health()
                 if i.dead_or_alive() == 'dead' and i in five_student:
                     five_student.remove(i)
-
+            print("4: ", len(four_student), "5: ", len(five_student))
+            screen.fill(WHITE)
+            draw_map()
+            write("손전등 배터리 : " + str(player.health), 10, 10, 30)
+            write("점수 : " + str(player.point), 10, 50, 30)
+            write("4기 수 : " + str(len(four_student)), 10, 90, 30)
+            write("5기 수 : " + str(len(five_student)), 10, 130, 30)
+            write("방향키를 입력하세요", 10, 200, 20)
+            pygame.display.flip()
 
 def func_dis4():
     regame = True
